@@ -1,0 +1,36 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import Header from "../../components/Header.astro";
+import Footer from "../../components/Footer.astro";
+import { createT } from "../../i18n/translations";
+import ProjectsGrid from "../../components/react/ProjectsGrid.jsx";
+
+const lang = "en";
+const t = createT(lang);
+---
+
+<Layout lang={lang} title="Projects | Portfolio" description="Projects page">
+  <Header t={t} lang={lang} />
+
+  <!-- Projects section (animated) -->
+  <section
+    data-reveal
+    style="--reveal-delay: 120ms"
+    class="mx-auto max-w-5xl px-4 py-16"
+  >
+    <h1 class="text-3xl font-bold">Projects</h1>
+
+    <p class="mt-4 opacity-80">
+      Interactive project list.
+    </p>
+
+    <div class="mt-8">
+      <ProjectsGrid
+        client:visible
+        labels={{ open: "Open", visit: "Visit" }}
+      />
+    </div>
+  </section>
+
+  <Footer t={t} />
+</Layout>

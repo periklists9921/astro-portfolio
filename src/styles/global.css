@@ -1,0 +1,20 @@
+@import "tailwindcss";
+
+/* -----------------------------------------------------------------------------
+   Scroll reveal (SAFE VERSION)
+----------------------------------------------------------------------------- */
+
+html.js [data-reveal] {
+  opacity: 0;
+  transform: translateY(14px);
+  filter: blur(2px);
+  transition: opacity 700ms ease, transform 700ms ease, filter 700ms ease;
+  transition-delay: var(--reveal-delay, 0ms);
+  will-change: opacity, transform, filter;
+}
+
+html.js [data-reveal].reveal--in {
+  opacity: 1;
+  transform: translateY(0);
+  filter: blur(0);
+}

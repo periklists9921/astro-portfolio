@@ -1,0 +1,47 @@
+---
+/**
+ * Header.astro
+ * -----------------------------------------------------------------------------
+ * Polished header with better spacing, subtle borders, and a nicer language switch.
+ */
+const { t, lang } = Astro.props;
+const otherLang = lang === "en" ? "el" : "en";
+
+const nav = [
+  { label: t("nav_home"), href: `/${lang}/` },
+  { label: t("nav_about"), href: `/${lang}/about` },
+  { label: t("nav_projects"), href: `/${lang}/projects` },
+  { label: t("nav_contact"), href: `/${lang}/contact` },
+];
+---
+
+<header class="sticky top-0 z-50 border-b border-white/10 bg-zinc-950/70 backdrop-blur">
+  <div class="mx-auto max-w-5xl px-4">
+    <div class="flex h-14 items-center justify-between">
+      <a href={`/${lang}/`} class="font-semibold tracking-tight hover:opacity-90">
+        {t("brand")}
+      </a>
+
+      <nav class="hidden items-center gap-6 md:flex">
+        {nav.map((item) => (
+          <a
+            class="text-sm opacity-80 hover:opacity-100 transition"
+            href={item.href}
+          >
+            {item.label}
+          </a>
+        ))}
+      </nav>
+
+      <a
+        class="inline-flex items-center gap-2 rounded-xl border border-white/15 bg-white/[0.03] px-3 py-1.5 text-sm hover:border-white/30 transition"
+        href={`/${otherLang}/`}
+        aria-label="Switch language"
+        title="Switch language"
+      >
+        <span class="opacity-80">🌐</span>
+        <span class="font-medium">{t("lang_switch")}</span>
+      </a>
+    </div>
+  </div>
+</header>

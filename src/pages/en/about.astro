@@ -1,0 +1,24 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import Header from "../../components/Header.astro";
+import Footer from "../../components/Footer.astro";
+import { createT } from "../../i18n/translations";
+const lang = "en";
+const t = createT(lang);
+---
+<Layout lang={lang} title="About | Portfolio" description="About page">
+  <Header t={t} lang={lang} />
+  <!-- Animated section -->
+  <section
+    data-reveal
+    style="--reveal-delay: 120ms"
+    class="mx-auto max-w-5xl px-4 py-16"
+  >
+    <h1 class="text-3xl font-bold">About</h1>
+
+    <p class="mt-4 opacity-80">
+      This is a placeholder page (assignment requirement: routes exist).
+    </p>
+  </section>
+  <Footer t={t} />
+</Layout>

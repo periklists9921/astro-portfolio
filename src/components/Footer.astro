@@ -1,0 +1,13 @@
+---
+/**
+ * Footer.astro
+ * -----------------------------------------------------------------------------
+ * - Footer is required by the assignment.
+ */
+const { t } = Astro.props;
+---
+<footer class="border-t border-white/10">
+  <div class="mx-auto max-w-5xl px-4 py-10 text-sm opacity-75">
+    <p>© {new Date().getFullYear()} {t("brand")}. {t("footer_rights")}</p>
+  </div>
+</footer>

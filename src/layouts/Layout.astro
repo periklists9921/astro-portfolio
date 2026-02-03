@@ -1,0 +1,50 @@
+---
+import "../styles/global.css";
+import ScrollAnimations from "../components/ScrollAnimations.astro";
+
+
+// -----------------------------------------------------------------------------
+// SHARED LAYOUT
+// - Imports Tailwind global styles (required for Tailwind to work).
+// - Provides base SEO metadata (title + description).
+// - Sets <html lang="..."> for accessibility + SEO.
+// -----------------------------------------------------------------------------
+
+const {
+  title = "Portfolio",
+  description = "Portfolio website built with Astro + React",
+  lang = "en",
+} = Astro.props;
+---
+
+<!doctype html>
+<html lang={lang}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <!-- SEO BASICS (Requirement: SEO friendly) -->
+    <title>{title}</title>
+    <meta name="description" content={description} />
+<!-- Basic canonical (SEO) -->
+<link rel="canonical" href={Astro.url.toString()} />
+
+<!-- hreflang for bilingual SEO -->
+<link rel="alternate" hrefLang="en" href={new URL("/en/", Astro.url).toString()} />
+<link rel="alternate" hrefLang="el" href={new URL("/el/", Astro.url).toString()} />
+
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  </head>
+
+ <body class="min-h-screen bg-zinc-950 text-zinc-50">
+  <!-- Subtle background glow (professional look) -->
+  <div class="pointer-events-none fixed inset-0 -z-10">
+    <div class="absolute -top-40 left-1/2 h-80 w-[900px] -translate-x-1/2 rounded-full bg-white/10 blur-3xl"></div>
+    <div class="absolute top-40 right-[-200px] h-72 w-72 rounded-full bg-white/5 blur-3xl"></div>
+  </div>
+
+<ScrollAnimations />
+<slot />
+</body>
+
+</html>

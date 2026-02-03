@@ -1,0 +1,139 @@
+---
+/**
+ * src/pages/el/index.astro
+ * -----------------------------------------------------------------------------
+ * HOME PAGE (EL)
+ * - Bilingual routing: /el/
+ * - Uses translations helper (t)
+ * - 4 sections on the homepage (Requirement)
+ * -----------------------------------------------------------------------------
+ */
+import Layout from "../../layouts/Layout.astro";
+import Header from "../../components/Header.astro";
+import Footer from "../../components/Footer.astro";
+import { createT } from "../../i18n/translations";
+import ProjectsGrid from "../../components/react/ProjectsGrid.jsx";
+import ContactForm from "../../components/react/ContactForm.jsx";
+
+
+const lang = "el";
+const t = createT(lang);
+---
+
+<Layout
+  lang={lang}
+  title="Αρχική | Portfolio"
+  description="Δίγλωσση portfolio αρχική σελίδα με Astro + React + Tailwind."
+>
+  <Header t={t} lang={lang} />
+
+  <main class="mx-auto max-w-5xl px-4">
+    <!-- SECTION 1: Title + tagline + CTA -->
+    <section class="py-16 md:py-24">
+      <h1 class="text-4xl font-bold tracking-tight md:text-6xl">{t("hero_title")}</h1>
+      <p class="mt-5 max-w-2xl text-lg opacity-80">{t("hero_tagline")}</p>
+
+    <div class="mt-8 flex flex-wrap items-center gap-3">
+  <a
+    href="#projects"
+    class="inline-flex items-center rounded-xl bg-white px-5 py-3 font-medium text-zinc-900 hover:opacity-90 transition"
+  >
+    {t("hero_cta")}
+  </a>
+
+  <a
+    href={`/${lang}/contact`}
+    class="inline-flex items-center rounded-xl border border-white/15 bg-white/[0.03] px-5 py-3 font-medium text-white/90 hover:border-white/30 transition"
+  >
+    {lang === "en" ? "Contact me" : "Στείλε μου μήνυμα"}
+  </a>
+</div>
+
+    </section>
+
+    <!-- SECTION 2: About + 5 years + interview highlight -->
+    <section class="py-16 md:py-20 border-t border-white/10">
+      <h2 class="text-2xl font-semibold">{t("about_title")}</h2>
+
+      <div class="mt-6 grid gap-6 md:grid-cols-3">
+        <p class="opacity-85 leading-relaxed md:col-span-2 text-[15px] md:text-base">
+          {t("about_body")}
+        </p>
+
+        <div class="rounded-2xl border border-white/10 p-5 bg-white/[0.02]">
+          <p class="text-sm opacity-70">{t("about_card_title")}</p>
+
+          <!-- Counted facts (01/02/03) -->
+          <div class="mt-4 space-y-3">
+            <div class="flex items-start gap-3">
+              <span class="mt-0.5 inline-flex h-8 w-10 items-center justify-center rounded-xl border border-white/10 text-xs font-semibold opacity-80">
+                01
+              </span>
+              <div>
+                <p class="text-xs uppercase tracking-wide opacity-60">{t("fact_1_label")}</p>
+                <p class="text-sm opacity-90">{t("fact_1_value")}</p>
+              </div>
+            </div>
+
+            <div class="flex items-start gap-3">
+              <span class="mt-0.5 inline-flex h-8 w-10 items-center justify-center rounded-xl border border-white/10 text-xs font-semibold opacity-80">
+                02
+              </span>
+              <div>
+                <p class="text-xs uppercase tracking-wide opacity-60">{t("fact_2_label")}</p>
+                <p class="text-sm opacity-90">{t("fact_2_value")}</p>
+              </div>
+            </div>
+
+            <div class="flex items-start gap-3">
+              <span class="mt-0.5 inline-flex h-8 w-10 items-center justify-center rounded-xl border border-white/10 text-xs font-semibold opacity-80">
+                03
+              </span>
+              <div>
+                <p class="text-xs uppercase tracking-wide opacity-60">{t("fact_3_label")}</p>
+                <p class="text-sm opacity-90">{t("fact_3_value")}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 3: Projects (interactive later) -->
+    <section id="projects" class="py-16 md:py-20 border-t border-white/10">
+      <h2 class="text-2xl font-semibold">{t("projects_title")}</h2>
+      <p class="mt-3 max-w-2xl opacity-80">{t("projects_body")}</p>
+
+     <div class="mt-8">
+  <ProjectsGrid
+    client:visible
+    labels={{ open: "Άνοιγμα", visit: "Προβολή" }}
+  />
+</div>
+    </section>
+
+    <!-- SECTION 4: Contact form UI only -->
+    <section class="py-16 md:py-20 border-t border-white/10">
+      <h2 class="text-2xl font-semibold">{t("contact_title")}</h2>
+
+     <div class="mt-8 max-w-2xl">
+  <ContactForm
+    client:visible
+    labels={{
+      name: t("contact_name"),
+      email: t("contact_email"),
+      message: t("contact_message"),
+      send: t("contact_send"),
+      note: t("contact_note"),
+      err_required: "Υποχρεωτικό",
+      err_email: "Μη έγκυρο email",
+      sent: "Εστάλη ✓",
+    }}
+  />
+</div>
+
+    </section>
+  </main>
+
+  <Footer t={t} />
+</Layout>

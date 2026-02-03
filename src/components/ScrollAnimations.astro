@@ -1,0 +1,52 @@
+---
+/**
+ * ScrollAnimations.astro (BULLETPROOF)
+ * - Enables reveal only when JS is active (html.js)
+ * - Runs after DOM is ready
+ * - Re-scans elements safely (covers timing issues)
+ */
+---
+
+<script is:inline>
+  // Enable reveal CSS only when JS is active
+  document.documentElement.classList.add("js");
+
+  function runReveal() {
+    const prefersReducedMotion =
+      window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    const els = Array.from(document.querySelectorAll("[data-reveal]"));
+
+    // If reduced motion: show instantly
+    if (prefersReducedMotion) {
+      els.forEach((el) => el.classList.add("reveal--in"));
+      return;
+    }
+
+    // If IntersectionObserver not supported: show instantly
+    if (!("IntersectionObserver" in window)) {
+      els.forEach((el) => el.classList.add("reveal--in"));
+      return;
+    }
+
+    const observer = new IntersectionObserver(
+      (entries, obs) => {
+        for (const entry of entries) {
+          if (!entry.isIntersecting) continue;
+          entry.target.classList.add("reveal--in");
+          obs.unobserve(entry.target);
+        }
+      },
+      { threshold: 0.14 }
+    );
+
+    els.forEach((el) => observer.observe(el));
+  }
+
+  // Run after DOM is ready (fixes "other pages hidden" issue)
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", runReveal, { once: true });
+  } else {
+    runReveal();
+  }
+</script>

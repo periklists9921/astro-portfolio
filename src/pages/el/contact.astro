@@ -1,0 +1,45 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import Header from "../../components/Header.astro";
+import Footer from "../../components/Footer.astro";
+import { createT } from "../../i18n/translations";
+import ContactForm from "../../components/react/ContactForm.jsx";
+
+const lang = "el";
+const t = createT(lang);
+---
+
+<Layout lang={lang} title="Επικοινωνία | Portfolio" description="Σελίδα επικοινωνίας">
+  <Header t={t} lang={lang} />
+
+  <!-- Contact section (animated) -->
+  <section
+    data-reveal
+    style="--reveal-delay: 140ms"
+    class="mx-auto max-w-5xl px-4 py-16"
+  >
+    <h1 class="text-3xl font-bold">Επικοινωνία</h1>
+
+    <p class="mt-4 opacity-80">
+      Φόρμα επικοινωνίας (μόνο UI).
+    </p>
+
+    <div class="mt-8 max-w-2xl">
+      <ContactForm
+        client:visible
+        labels={{
+          name: t("contact_name"),
+          email: t("contact_email"),
+          message: t("contact_message"),
+          send: t("contact_send"),
+          note: t("contact_note"),
+          err_required: "Υποχρεωτικό",
+          err_email: "Μη έγκυρο email",
+          sent: "Εστάλη ✓",
+        }}
+      />
+    </div>
+  </section>
+
+  <Footer t={t} />
+</Layout>
